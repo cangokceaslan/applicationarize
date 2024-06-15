@@ -72,7 +72,7 @@ async function downloadIcon(iconUrl) {
     });
 }
 
-const injectPath = resolve(__dirname, '..', 'preload', 'index.js');
+const injectPath = resolve(__dirname, './', 'preload', 'index.js');
 
 
 async function main() {
