@@ -22,7 +22,7 @@ You will be asked to provide the following information:
 **Name:** Name of the application\
 **Icon:** Icon path or url for the application\
 **URL:** URL of the website which you want to convert to application\
-**Platform:** Platform for the application (windows, mac, linux) - Optional (default: set to your current platform)\
+**Platform:** Platform for the application (windows, mac, linux) - Optional (default: set to your current platform)
 
 After running the command, the application will be created in the desktop directory.
 
