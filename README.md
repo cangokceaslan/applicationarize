@@ -19,10 +19,14 @@ applicationarize
 
 You will be asked to provide the following information:
 
-**Name:** Name of the application
-**Icon:** Icon path or url for the application
-**URL:** URL of the website which you want to convert to application
-**Platform:** Platform for the application (windows, mac, linux) - Optional (default: set to your current platform)
+**Name:** Name of the application\
+&nbsp;
+**Icon:** Icon path or url for the application\
+&nbsp;
+**URL:** URL of the website which you want to convert to application\
+&nbsp;
+**Platform:** Platform for the application (windows, mac, linux) - Optional (default: set to your current platform)\
+&nbsp;
 
 After running the command, the application will be created in the desktop directory.
 

@@ -1,6 +1,6 @@
 {
   "name": "applicationarize",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "This is a simple CLI application that helps you to create a electron application with a single command.",
   "main": "index.js",
   "bin": {
