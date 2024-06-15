@@ -75,11 +75,16 @@ async function downloadIcon(iconUrl) {
 const injectPath = resolve(__dirname, './', 'preload', 'index.js');
 
 
-async function main() {
-    const name = await prompt(`${CYAN}Name:${NC} `);
-    const icon = await prompt(`${CYAN}Icon:${NC} `);
-    const appUrl = await prompt(`${CYAN}URL:${NC} `);
-    const platform = await prompt(`${CYAN}Platform (mac/windows/linux) (Optional):${NC} `);
+async function main(options = {
+    name: undefined,
+    icon: undefined,
+    url: undefined,
+    platform: undefined
+}) {
+    const name = options.name || await prompt(`${CYAN}Name:${NC} `);
+    const icon = options.icon || await prompt(`${CYAN}Icon:${NC} `);
+    const appUrl = options.url || await prompt(`${CYAN}URL:${NC} `);
+    const platform = options.platform || await prompt(`${CYAN}Platform (mac/windows/linux) (Optional):${NC} `);
 
     let platformStr = '';
     let platformSuffix = '';
