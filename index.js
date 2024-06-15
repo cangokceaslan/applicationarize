@@ -5,7 +5,6 @@ const fs = require('fs');
 const url = require('url');
 const os = require('os');
 const axios = require('axios');
-const preloadjs = require('./preload/index');
 
 // ANSI color codes
 const CYAN = '\x1b[36m';
