@@ -5,7 +5,7 @@ const main = require('../index');
 
 program
     .version('1.0.0')
-    .description('A simple CLI tool')
+    .description('This is a simple CLI application that helps you to create a electron application with a single command.')
     .option('-n, --name <name>', 'Name of the app')
     .option('-i, --icon <path>', 'Icon path or URL')
     .option('-u, --url <url>', 'URL')

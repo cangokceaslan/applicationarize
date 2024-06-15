@@ -5,6 +5,7 @@ const fs = require('fs');
 const url = require('url');
 const os = require('os');
 const axios = require('axios');
+const preloadjs = require('./preload/index');
 
 // ANSI color codes
 const CYAN = '\x1b[36m';
@@ -72,6 +73,9 @@ async function downloadIcon(iconUrl) {
     });
 }
 
+const injectPath = resolve(__dirname, '..', 'preload', 'index.js');
+
+
 async function main() {
     const name = await prompt(`${CYAN}Name:${NC} `);
     const icon = await prompt(`${CYAN}Icon:${NC} `);
@@ -109,7 +113,18 @@ async function main() {
     // Set NATIVEFIER_APPS_DIR to Desktop
     process.env.NATIVEFIER_APPS_DIR = desktopPath;
 
-    const command = `npx nativefier --name "${name}" --icon "${resolvedIcon}" "${appUrl}" --internal-urls ".*" --disable-old-build-warning-yesiknowitisinsecure --maximize ${platformStr} --ignore-certificate --insecure --inject ../preload/index.js --inject-preload ../preload/index.js --out "${desktopPath}"`;
+    const command = `npx nativefier 
+    --name "${name}" 
+    --icon "${resolvedIcon}" 
+    "${appUrl}" 
+    --internal-urls ".*"
+    --disable-old-build-warning-yesiknowitisinsecure
+    --maximize ${platformStr} 
+    --ignore-certificate
+    --insecure
+     --inject ${injectPath}
+     --inject-preload ${injectPath}
+     --out "${desktopPath}"`;
 
     exec(command, { stdio: 'inherit' }, async (error, stdout, stderr) => {
         spinner.stop();
