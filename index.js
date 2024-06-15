@@ -112,18 +112,7 @@ async function main() {
     // Set NATIVEFIER_APPS_DIR to Desktop
     process.env.NATIVEFIER_APPS_DIR = desktopPath;
 
-    const command = `npx nativefier 
-    --name "${name}" 
-    --icon "${resolvedIcon}" 
-    "${appUrl}" 
-    --internal-urls ".*"
-    --disable-old-build-warning-yesiknowitisinsecure
-    --maximize ${platformStr} 
-    --ignore-certificate
-    --insecure
-     --inject ${injectPath}
-     --inject-preload ${injectPath}
-     --out "${desktopPath}"`;
+    const command = `npx nativefier --name "${name}" --icon "${resolvedIcon}" "${appUrl}" --internal-urls ".*"--disable-old-build-warning-yesiknowitisinsecure--maximize ${platformStr} --ignore-certificate--insecure--inject ${injectPath}--inject-preload ${injectPath}--out "${desktopPath}"`;
 
     exec(command, { stdio: 'inherit' }, async (error, stdout, stderr) => {
         spinner.stop();
