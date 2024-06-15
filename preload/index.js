@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
     searchContainer.style.right = "10px";
     searchContainer.style.maxWidth = "400px";
     searchContainer.style.width = "100%";
-    searchContainer.style.backgroundColor = "#333";
+    searchContainer.style.backgroundColor = "#333 !important";
     searchContainer.style.padding = "10px";
     searchContainer.style.boxShadow = "0px 2px 5px rgba(0, 0, 0, 0.5)";
     searchContainer.style.zIndex = "1000";
@@ -20,7 +20,7 @@ window.addEventListener('DOMContentLoaded', () => {
     searchContainer.style.justifyContent = "space-between";
     searchContainer.style.boxSizing = "border-box";
     searchContainer.style.borderRadius = "5px";
-    searchContainer.style.color = "#fff";
+    searchContainer.style.color = "#fff !important";
     searchContainer.style.gap = "10px";
 
     const searchInput = document.createElement("input");
@@ -28,18 +28,18 @@ window.addEventListener('DOMContentLoaded', () => {
     searchInput.placeholder = "Find in page";
     searchInput.style.flex = "1";
     searchInput.style.padding = "5px";
-    searchInput.style.border = "1px solid #555";
+    searchInput.style.border = "1px solid #555 !important";
     searchInput.style.borderRadius = "3px";
-    searchInput.style.backgroundColor = "#444";
-    searchInput.style.color = "#fff";
+    searchInput.style.backgroundColor = "#444 !important";
+    searchInput.style.color = "#fff !important";
     searchContainer.appendChild(searchInput);
 
     const prevButton = document.createElement("button");
     prevButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
     prevButton.style.padding = "5px 10px";
     prevButton.style.border = "none";
-    prevButton.style.backgroundColor = "transparent";
-    prevButton.style.color = "white";
+    prevButton.style.backgroundColor = "transparent !important";
+    prevButton.style.color = "#fff !important";
     prevButton.style.borderRadius = "3px";
     prevButton.style.cursor = "pointer";
     searchContainer.appendChild(prevButton);
@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
     nextButton.style.padding = "5px 10px";
     nextButton.style.border = "none";
     nextButton.style.backgroundColor = "transparent";
-    nextButton.style.color = "white";
+    nextButton.style.color = "#fff !important";
     nextButton.style.borderRadius = "3px";
     nextButton.style.cursor = "pointer";
     searchContainer.appendChild(nextButton);
