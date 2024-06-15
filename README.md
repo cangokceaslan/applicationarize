@@ -17,14 +17,12 @@ yarn global add applicationarize
 applicationarize
 ```
 
-Name: "Name of the application"
-<br/>
-Icon: "Icon path or url for the application"
-<br/>
-URL: "URL of the website which you want to convert to application"
-<br/>
-Platform: "Platform for the application (windows, mac, linux) - Optional (default: set to your current platform)"
+You will be asked to provide the following information:
 
+**Name:** Name of the application
+**Icon:** Icon path or url for the application
+**URL:** URL of the website which you want to convert to application
+**Platform:** Platform for the application (windows, mac, linux) - Optional (default: set to your current platform)
 
 After running the command, the application will be created in the desktop directory.
 
