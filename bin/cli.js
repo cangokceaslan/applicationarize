@@ -2,9 +2,10 @@
 
 const { program } = require('commander');
 const main = require('../index');
+const package = require('../package.json');
 
 program
-    .version('1.0.0')
+    .version(package.version)
     .description('This is a simple CLI application that helps you to create a electron application with a single command.')
     .option('-n, --name <name>', 'Name of the app')
     .option('-i, --icon <path>', 'Icon path or URL')
