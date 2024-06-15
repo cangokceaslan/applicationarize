@@ -32,6 +32,24 @@ This application will be created with the name you provided and the icon you pro
 
 This application is single instance application, which means you can only run one instance of the application at a time. If you try to open the application again, it will focus on the already opened application.
 
+---
+
+This package is using [nativefier](https://www.npmjs.com/package/nativefier) package to create the application.
+
+## Dependencies
+- [nativefier](https://www.npmjs.com/package/nativefier)
+- [axios](https://www.npmjs.com/package/axios)
+- [child_process](https://nodejs.org/api/child_process.html)
+- [commander](https://www.npmjs.com/package/commander)
+- [electron](https://www.npmjs.com/package/electron)
+- [fs](https://nodejs.org/api/fs.html)
+- [open](https://www.npmjs.com/package/open)
+- [ora](https://www.npmjs.com/package/ora)
+- [os](https://nodejs.org/api/os.html)
+- [path](https://nodejs.org/api/path.html)
+- [readline](https://nodejs.org/api/readline.html)
+- [url](https://nodejs.org/api/url.html)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
