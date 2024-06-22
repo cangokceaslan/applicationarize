@@ -62,6 +62,7 @@ async function convertPngToIcoForWindows(path) {
     const icoPath = path.replace('.png', '.ico');
     const icoBuffer = await pngToIco(path);
     fs.writeFileSync(icoPath, icoBuffer);
+    fs.unlinkSync(path);
 
     return icoPath || path;
 }
