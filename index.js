@@ -5,6 +5,8 @@ const fs = require('fs');
 const url = require('url');
 const os = require('os');
 const axios = require('axios');
+const nativefier = require('nativefier').default;
+const pngToIco = require('png-to-ico');
 
 // ANSI color codes
 const CYAN = '\x1b[36m';
@@ -54,6 +56,16 @@ function isValidUrl(input) {
     }
 }
 
+async function convertPngToIcoForWindows(path) {
+    if (os.platform() !== 'win32') return path;
+
+    const icoPath = path.replace('.png', '.ico');
+    const icoBuffer = await pngToIco(path);
+    fs.writeFileSync(icoPath, icoBuffer);
+
+    return icoPath || path;
+}
+
 async function downloadIcon(iconUrl) {
     const iconPath = resolve(os.tmpdir(), 'icon.png');
     const writer = fs.createWriteStream(iconPath);
@@ -67,13 +79,21 @@ async function downloadIcon(iconUrl) {
     response.data.pipe(writer);
 
     return new Promise((resolve, reject) => {
-        writer.on('finish', () => resolve(iconPath));
+        writer.on('finish', () => {
+            let path = convertPngToIcoForWindows(iconPath) || iconPath;
+            resolve(path)
+        });
         writer.on('error', reject);
     });
 }
 
+
+
 const injectPath = resolve(__dirname, './', 'preload', 'index.js');
 
+const downloadOptions = {
+    saveAs: true
+}
 
 async function main(options = {
     name: undefined,
@@ -86,18 +106,14 @@ async function main(options = {
     const appUrl = options.url || await prompt(`${CYAN}URL:${NC} `);
     const platform = options.platform || await prompt(`${CYAN}Platform (mac/windows/linux) (Optional):${NC} `);
 
-    let platformStr = '';
     let platformSuffix = '';
 
     if (platform === 'mac') {
-        platformStr = '--platform darwin';
-        platformSuffix = '-darwin';
+        platformSuffix = 'darwin';
     } else if (platform === 'windows') {
-        platformStr = '--platform windows';
-        platformSuffix = '-win32';
+        platformSuffix = 'win32';
     } else if (platform === 'linux') {
-        platformStr = '--platform linux';
-        platformSuffix = '-linux';
+        platformSuffix = 'linux';
     }
 
     let resolvedIcon;
@@ -114,45 +130,45 @@ async function main(options = {
     const open = (await import('open')).default;
     const spinner = ora('Generating application with Nativefier...').start();
 
-    // Set NATIVEFIER_APPS_DIR to Desktop
     process.env.NATIVEFIER_APPS_DIR = desktopPath;
 
-    const command = `npx nativefier --name "${name}" --icon "${resolvedIcon}" "${appUrl}" --internal-urls ".*" --disable-old-build-warning-yesiknowitisinsecure --maximize ${platformStr} --ignore-certificate --insecure --inject ${injectPath} --inject-preload ${injectPath} --out "${desktopPath}" --single-instance`;
+    const appOptions = {
+        name: name,
+        icon: resolvedIcon,
+        targetUrl: appUrl,
+        internalUrls: '.*',
+        disableOldBuildWarning: true,
+        maximize: true,
+        platform: platformSuffix,
+        ignoreCertificate: true,
+        insecure: true,
+        inject: [injectPath],
+        injectPreload: [injectPath],
+        out: desktopPath,
+        singleInstance: true,
+        fileDownloadOptions: {
+            saveAs: true, // always show "Save As" dialog
+        },
+        quiet: true
+    }
 
-    exec(command, { stdio: 'inherit' }, async (error, stdout, stderr) => {
+    nativefier(appOptions, async (error, appPath) => {
         spinner.stop();
         if (error) {
             console.error(`Error: ${error.message}`);
             return;
         }
 
-        try {
-            // Find the directory starting with the app name and the platform suffix
-            const files = fs.readdirSync(desktopPath);
-            const appDir = files.find(file => file.startsWith(name) && file.includes(platformSuffix));
+        await open(appPath).catch((openError) => {
+            console.error(`Error opening directory: ${openError.message}`);
+        });
 
-            if (!appDir) {
-                throw new Error('Application directory not found');
-            }
-
-            const appPath = join(desktopPath, appDir);
-
-            // Set permissions for the directory
-            fs.chmodSync(appPath, '755');
-
-            console.log(`${GREEN}Application ${name} created successfully on Desktop.${NC}`);
-            await open(appPath).catch((openError) => {
-                console.error(`Error opening directory: ${openError.message}`);
-            });
-
-            // Clean up the downloaded icon if necessary
-            if (isValidUrl(icon)) {
-                fs.unlinkSync(resolvedIcon);
-            }
-        } catch (error) {
-            console.error(`Error setting permissions or opening directory: ${error.message}`);
+        // Clean up the downloaded icon if necessary
+        if (isValidUrl(icon)) {
+            fs.unlinkSync(resolvedIcon);
         }
     });
+
 
     rl.close();
 }

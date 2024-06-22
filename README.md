@@ -49,6 +49,7 @@ This package is using [nativefier](https://www.npmjs.com/package/nativefier) pac
 - [path](https://nodejs.org/api/path.html)
 - [readline](https://nodejs.org/api/readline.html)
 - [url](https://nodejs.org/api/url.html)
+- [png-to-ico](https://www.npmjs.com/package/png-to-ico)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
