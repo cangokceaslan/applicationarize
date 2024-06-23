@@ -6,7 +6,7 @@ const package = require('../package.json');
 
 program
     .version(package.version)
-    .description('This is a simple CLI application that helps you to create a electron application with a single command.')
+    .description(package.description)
     .option('-n, --name <name>', 'Name of the app')
     .option('-i, --icon <path>', 'Icon path or URL')
     .option('-u, --url <url>', 'URL')
